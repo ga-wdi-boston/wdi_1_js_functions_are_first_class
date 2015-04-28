@@ -4,11 +4,17 @@
 
 ## Introduction
 
-One of the things that makes Javascript such a powerful language is that in jargon, "functions are first-class objects."  This means that you can do the same things with functions that you can do with any other value: you can store them in variables, you can pass them as arguments to other functions, and return them from other functions.  Today, we're going to be exploring those capabilities.
+One of the things that makes Javascript such a powerful language is
+that in jargon, "functions are first-class objects."  This means that
+you can do the same things with functions that you can do with any
+other value: you can store them in variables, you can pass them as
+arguments to other functions, and return them from other functions.
+Today, we're going to be exploring those capabilities.
 
 ## Objectives
 
-By the end of this lesson, students should be able to do the following:
+By the end of this lesson, students should be able to do the
+following:
 
 - Store and use anonymous functions in variables
 - Pass functions as arguments to functions that expect them
@@ -36,18 +42,36 @@ But we could have defined it another way:
 
 var square = function (x) {
     return x*x;
-}
+};
 ```
 
-The practical result?  No difference at all, yet.
+Example 1 is called the "function definition" or "function
+declaration" form.  Example 2 is called the "function expression"
+form.  By convention, the function declaration form does not require a
+semicolon after it, while the function expression form does.
 
-Something to be careful of: the observant among you will have noticed that there are two places that you can give a function a name.  For now: never use both of them, because there are very few good reasons to  and unless you have a good reason to use bth 
+A key thing to remember: when you want to refer to the function itself
+-- for example, when you want to pass it to another function (which
+we'll see in a moment) or when you want to assign it to a variable,
+you use the function name *without parentheses*.  When you want to
+invoke or call the function, you use the function name *with
+parentheses*.
+
+And a key thing to be careful of: the observant among you will have
+noticed that there are two places you can give a function a name.
+There are almost no circumstances where it is a good idea to do this.
+
+Something to be careful of: the observant among you will have noticed
+that there are two places that you can give a function a name.  For
+now: never use both, always use one or the other.
 
 But what can we do with this?
 
 ## Do something later: callbacks
 
-The `setTimeout()` function takes a function and a delay in milliseconds, and executes the function as soon as possible after that delay has passed.  
+The `setTimeout()` function takes a function and a delay in
+milliseconds, and executes the function as soon as possible after that
+delay has passed.
 
 ```javascript
 // Example 3
@@ -63,7 +87,9 @@ var fiveSecondTimeout = setTimeout (function () {
 }, 5000);
 ```
 
-The `setInterval()` function takes a function and a delay in milliseconds, and executes that function as closely as possible each time that interval of milliseconds has passed.
+The `setInterval()` function takes a function and a delay in
+milliseconds, and executes that function as closely as possible each
+time that interval of milliseconds has passed.
 
 ```javascript 
 // Example 4
@@ -79,9 +105,12 @@ var fiveSecondInterval = setInterval(function (){
 }, 5000);
 ```
 
-Things to be careful of:  you need to know what the function expects as parameters.  Javascript is forgiving, but not a mind-reader.
+Things to be careful of:  you need to know what the function expects
+as parameters.  Javascript is forgiving, but not a mind-reader.
 
-Oh, and if you want to disable the timers before they fire, you can use the `clearTimeout(timeoutHandle)` or `clearInterval(intervalHandle)` functions:
+Oh, and if you want to disable the timers before they fire, you can
+use the `clearTimeout(timeoutHandle)` or
+`clearInterval(intervalHandle)` functions:
 
 ```javascript
 // Example 5
@@ -95,7 +124,9 @@ clearInterval(fiveSecondInterval);
 
 ## I'll handle the big picture, you handle the details
 
-There are a lot of problems that can be broken down into two or more smaller, easier problems.  We're going to start with a fairly simple but artifical one: 
+There are a lot of problems that can be broken down into two or more
+smaller, easier problems.  We're going to start with a fairly simple
+but artifical one:
 
 ```javascript
 // Example 6
@@ -114,7 +145,9 @@ var inputNumbers = [1, 5, 7, 2, 8, 6, 9, 3];
 countOdds(inputNumbers);
 ```
 
-This is two problems: one, iterating over the list and counting items, and two, determining whether the item should be counted.  So we can rewrite it like this:
+This is two problems: one, iterating over the list and counting items,
+and two, determining whether the item should be counted.  So we can
+rewrite it like this:
 
 ```javascript
 // Example 7
@@ -137,13 +170,20 @@ var inputNumbers = [1, 5, 7, 2, 8, 6, 9, 3];
 countWhereTrue(inputNumbers, isOdd);
 ```
 
+Notice that `countWhereTrue()` relies on the predicate taking one
+argument, a number, and returning a truthy or falsy value.  If the
+predicate doesn't do that, all bets are off.  This is sometimes called
+a "software contract."
+
 ## Try it for yourself
 
-Work through the problems in scripts/exercise-1.js, scripts/exercise-2.js, and scripts/exercise-3.js.
+Work through the problems in exercises/exercise-1.js,
+exercises/exercise-2.js, and exercises/exercise-3.js.
 
 ## Returning functions from functions
 
-You can probably guess by now how to return a function from a function:
+You can probably guess by now how to return a function from a
+function:
 
 ```javascript
 // Example 8
@@ -151,7 +191,7 @@ You can probably guess by now how to return a function from a function:
 function makeIncrementor(n) {
     return function (x) {
         return x + n;
-    }
+    };
 }
 
 var plusOne = makeIncrementor(1);
@@ -161,7 +201,8 @@ plusOne(6);
 plusTwo(4);
 ```
 
-Or we can use this feature to simplify what we've learned and pretend we lived in a simpler time:
+Or we can use this feature to simplify what we've learned and pretend
+we lived in a simpler time:
 
 ```javascript
 // Example 9
@@ -174,9 +215,10 @@ function makeCountWhereTrue (predicate) {
             if (predicate(numbers[i])) {
                count++;
             }
-        }    
-    }
+        }   
+    };
 }
+
 function isOdd(number) {
     return (number % 2) === 1;
 }
@@ -184,8 +226,16 @@ function isOdd(number) {
 var countTheOdds = makeCountWhereTrue(isOdd);
 ```
 
-There is a lot of complexity hidden underneath the surface here, most of it dealing with scoping.  We'll be coming back to re-examine this later.
+There is a lot of complexity hidden underneath the surface here, most
+of it dealing with scoping.  We'll be coming back to re-examine this
+later.
 
 ## Try it for yourself
 
-Work through the problems in scripts/exercise-4.js and scripts/exercise-5.js
+Work through the problems in exercises/exercise-4.js and
+exercises/exercise-5.js
+
+## Other Notes
+
+All of the examples are available as separate files in the examples/
+directory.

@@ -3,7 +3,7 @@
 function makeIncrementor(n) {
     return function (x) {
         return x + n;
-    }
+    };
 }
 
 var plusOne = makeIncrementor(1);

@@ -8,9 +8,10 @@ function makeCountWhereTrue (predicate) {
             if (predicate(numbers[i])) {
                count++;
             }
-        }    
-    }
+        }
+    };
 }
+
 function isOdd(number) {
     return (number % 2) === 1;
 }
