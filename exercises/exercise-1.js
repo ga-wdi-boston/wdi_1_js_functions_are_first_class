@@ -23,7 +23,7 @@ function isOdd(number) {
 
 var inputNumbers = [3, 1, 6, 2, 4, 9, 7, 5];
 
-if (countWhereTrue(inputNumbers, isOdd) === 4) {
+if (countWhereTrue(inputNumbers, isOdd) === 5) {
   console.log('isOdd predicate works correctly');
 } else {
   console.log('isOdd predicate does not work correctly');
