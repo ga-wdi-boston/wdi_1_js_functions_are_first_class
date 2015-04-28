@@ -12,6 +12,7 @@ function countWhereTrue (numbers, predicate) {
             count++;
         }
     }
+    return count;
 }
 
 function isOdd(number) {
@@ -31,7 +32,7 @@ if (countWhereTrue(inputNumbers, isOdd) === 4) {
 // Rewrite the predicate isEven so that the following code works.
 // Note that this, like the example above, is using a named function.
 
-function isSquare (number) {
+function isEven (number) {
   return false;
 }
 
