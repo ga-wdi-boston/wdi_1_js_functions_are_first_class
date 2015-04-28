@@ -7,11 +7,12 @@
 function countWhereTrue (numbers, predicate) {
     var i;
     var count = 0;
-    for (i = 0; i < count.length; i++) {
+    for (i = 0; i < numbers.length; i++) {
         if (predicate(numbers[i])) {
             count++;
         }
     }
+    return count;
 }
 
 function isOdd(number) {
@@ -27,6 +28,16 @@ if (countWhereTrue(inputNumbers, isOdd) === 4) {
 } else {
   console.log('isOdd predicate does not work correctly');
 }
+
+// This code uses an anonymous predicate to count square numbers.
+
+var squaresInput = [3, 25, 16, 7, 2, 49];
+var countSquares = countWhereTrue (squaresInput, function(number){
+  var squareRoot = Math.sqrt(number);
+  var roundedDownSquareRoot = Math.floor(number);
+  return (roundedDownSquareRoot * roundedDownSquareRoot === number);
+});
+console.log("there are " + countSquares + " square numbers in the list");
 
 // Change the following code so that it counts numbers divisible by
 // three.  Note that this is using a completely anonymous function,
