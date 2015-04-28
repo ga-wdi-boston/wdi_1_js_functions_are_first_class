@@ -20,6 +20,8 @@ By the end of this lesson, students should be able to do the following:
 You've seen functions like this one already:
 
 ```javascript
+// Example 1
+
 function square(x) {
     return x*x;
 }
@@ -30,6 +32,8 @@ This function has a name: `square`.
 But we could have defined it another way:
 
 ```javascript
+// Example 2
+
 var square = function (x) {
     return x*x;
 }
@@ -46,6 +50,8 @@ But what can we do with this?
 The `setTimeout()` function takes a function and a delay in milliseconds, and executes the function as soon as possible after that delay has passed.  
 
 ```javascript
+// Example 3
+
 function announce() { 
     console.log('Ding!'); 
 }
@@ -60,6 +66,8 @@ var fiveSecondTimeout = setTimeout (function () {
 The `setInterval()` function takes a function and a delay in milliseconds, and executes that function as closely as possible each time that interval of milliseconds has passed.
 
 ```javascript 
+// Example 4
+
 function annoy(){ 
     console.log('Are we there yet?');
 }
@@ -73,11 +81,25 @@ var fiveSecondInterval = setInterval(function (){
 
 Things to be careful of:  you need to know what the function expects as parameters.  Javascript is forgiving, but not a mind-reader.
 
+Oh, and if you want to disable the timers before they fire, you can use the `clearTimeout(timeoutHandle)` or `clearInterval(intervalHandle)` functions:
+
+```javascript
+// Example 5
+
+var fourSecondTimeout = setTimeout (announce, 4000);
+clearTimeout(fourSecondTimeout);
+
+clearInterval(threeSecondInterval);
+clearInterval(fiveSecondInterval);
+```
+
 ## I'll handle the big picture, you handle the details
 
 There are a lot of problems that can be broken down into two or more smaller, easier problems.  We're going to start with a fairly simple but artifical one: 
 
 ```javascript
+// Example 6
+
 function countOdds (numbers) {
     var i;
     var count = 0;
@@ -95,6 +117,8 @@ countOdds(inputNumbers);
 This is two problems: one, iterating over the list and counting items, and two, determining whether the item should be counted.  So we can rewrite it like this:
 
 ```javascript
+// Example 7
+
 function countWhereTrue (numbers, predicate) {
     var i;
     var count = 0;
@@ -115,11 +139,53 @@ countWhereTrue(inputNumbers, isOdd);
 
 ## Try it for yourself
 
-1. Open the scripts/exercise-1.js file in this repository and follow the instructions in the comments.  In this exercise you will be writing more predicates.
+Work through the problems in scripts/exercise-1.js, scripts/exercise-2.js, and scripts/exercise-3.js.
 
-2. Open the scripts/exercise-2.js file in this repository and follow the instructions in the comments.  In this exercise you will be doing different things with the results of the predicates.
+## Returning functions from functions
 
-3. Error detection exercise?
+You can probably guess by now how to return a function from a function:
 
+```javascript
+// Example 8
 
+function makeIncrementor(n) {
+    return function (x) {
+        return x + n;
+    }
+}
 
+var plusOne = makeIncrementor(1);
+var plusTwo = makeIncrementor(2);
+
+plusOne(6);
+plusTwo(4);
+```
+
+Or we can use this feature to simplify what we've learned and pretend we lived in a simpler time:
+
+```javascript
+// Example 9
+
+function makeCountWhereTrue (predicate) {
+    return function(numbers) {
+        var i;
+        var count = 0;
+        for (i = 0; i < count.length; i++) {
+            if (predicate(numbers[i])) {
+               count++;
+            }
+        }    
+    }
+}
+function isOdd(number) {
+    return (number % 2) === 1;
+}
+
+var countTheOdds = makeCountWhereTrue(isOdd);
+```
+
+There is a lot of complexity hidden underneath the surface here, most of it dealing with scoping.  We'll be coming back to re-examine this later.
+
+## Try it for yourself
+
+Work through the problems in scripts/exercise-4.js and scripts/exercise-5.js
