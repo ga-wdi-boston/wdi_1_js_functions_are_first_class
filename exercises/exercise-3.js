@@ -38,28 +38,14 @@ function listWhereTrue (numbers, predicate) {
 }
 
 var listResult = listWhereTrue(inputNumbers, isOdd);
-if (numberListsEqual(listResult, [3, 1, 9, 7, 5])) {
+
+var assert = requre('assert');
+
+try {
+  assert.deepEqual(listResult, [3, 1, 9, 7, 5]);
   console.log('listWhereTrue produces the right answer!');
-} else {
+}
+catch (e) {
   console.log('listWhereTrue is still confused.');
 }
 
-// The code below helps to check your answer.  You should not modify it.
-
-function numberListsEqual(a, b) {
-  if (!Array.isArray(a) || !Array.isArray(b)) {
-    return false;
-  }
-
-  if (a.length != b.length) {
-    return false;
-  }
-
-  if (a.filter(function(e, i){
-    return (typeof e !== "number") || e !== b[i];
-  }).length) {
-    return false;
-  }
-
-  return true;
-}
